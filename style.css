@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+header,
+#intro
+{
+  height: 100%;
+}
+
+
+body{
+  background-color:#000000;
+  color: white;
+}
+
+.showcase{
+  position: relative;
+  right: 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  color: #fff;
+  z-index: 2;
+  transition: 0.5s;
+}
+
+.showcase.active {
+  right: 300px;
+}
+
+.showcase header{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 100px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1{
+  font-size: 4vw;
+  text-align: center;
+}
+
+.logo{
+  text-transform: uppercase;
+  cursor: pointer;
+  align-self: stretch;
+}
+
+.toggle{
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background: url(https://i.ibb.co/HrfVRcx/menu.png);
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: center;
+  cursor: pointer;
+}
+
+.toggle.active {
+  background: url(https://i.ibb.co/rt3HybH/close.png);
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: center; cursor: pointer;
+}
+
+.showcase video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #03a9f4;
+  mix-blend-mode: overlay;
+}
+
+.text {
+  position: relative;
+  z-index: 10;
+}
+
+.text h2 {
+  font-size: 5em;
+  font-weight: 800; color: #fff;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+.text h3 {
+  font-size: 4em;
+  font-weight: 700; color: #fff;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+.text p {
+  font-size: 1.1em; color: #fff;
+  margin: 20px 0;
+  font-weight: 400;
+  max-width: 700px;
+}
+
+.text a {
+  display: inline-block;
+  font-size: 1em;
+  background: #fff;
+  padding: 10px 30px;
+  text-decoration: none;
+  color: #111;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: 0.2s;
+
+  /*font-weight: 500;*/
+  }
+
+.text a:hover {
+  letter-spacing: 12px;
+}
+
+.media{
+    background: linear-gradient(to bottom, #000000, rgba(19, 19, 19, 0));
+    mask-image:linear-gradient(to bottom, white,transparent)
+    }
+
+.media__item {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+
+
+
+
+
+.social {
+  position: absolute;
+  z-index: 10;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.social li {
+  list-style: none;
+}
+
+.social li a {
+  display: inline-block;
+  margin-right: 20px;
+  filter: invert(1);
+  transform: scale(0.5);
+  transition: 0.5s;
+}
+
+.social li a:hover {
+  transform: scale(0.5) translateY(-15px);
+}
+
+
+
+
+.menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu ul {
+  position: relative;
+  list-style:none;
+}
+
+.menu ul li a {
+  text-decoration: none;
+  font-size: 24px;
+  color: white;
+}
+
+.menu ul li a:hover {
+  color: #03a9f4;
+}
+
+@media (max-width: 798px) {
+  .showcase,
+  .showcase header {
+    padding: 40px;
+  }
+
+  .text h2 {
+    font-size: 3em;
+  }
+
+  .text h3 {
+    font-size: 2em;
+  }
+}
+
+.skills{
+  margin-top:10%;
+}
+h3{
+  font-size: 3vw;
+}
+
+.sk{
+  text-align: center;
+  padding-top: 3%;
+}
+.icon{
+  padding-top: 30%;
+
+}
+
+
+/*About*/
+#about{
+  margin-top: 10%;
+}
+#about p{
+  font-size: 1.2rem;
+}
+.abtme{
+  margin-top: 10%;
+  padding-left: 5%;
+}
+.pickgradient {
+  display:inline-block;
+  background: linear-gradient(0deg, rgba(0, 0, 0,0.8), rgba(20, 13, 15, 0));
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 );
+}
+img{
+  position:relative;
+  z-index:-1;
+  display:block;
+  height:auto;
+  max-width: 100%;
+}
+.abttxt{
+  margin-top: 15%;
+  text-align: center;
+}
+.abttxt button{
+  padding: 2% 5%;
+  margin: 10% 10%;
+  width: 30%;
+  border-radius: 20px;
+  width: auto;
+  background-color: rgb(22, 168, 201);
+  color: white;
+  border: none;
+  outline: none;
+}
+.abttxt button:hover{
+  cursor: pointer;
+  background-color: rgb(54, 195, 226);
+}
+
+/*Contact */
+#contact{
+  margin-top: 10%;
+}
+.footer-social{
+  margin-top: 15%;
+}
+#contact a{
+  color: white;
+  padding-left: 10%;
+}
+#contact a:hover{
+  color:rgb(54, 195, 226) ;
+}
+
+.details{
+  margin-left: 10%;
+  margin-top: 5%;
+}
+.label{
+  color:rgb(54, 195, 226);
+}
+
+.messageform{
+  margin-top: 15%;
+  text-align: center;
+  box-sizing: border-box;
+}
+input[type=text], select, textarea {
+  max-width: 100%;
+  width: 100%;
+  padding-top: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  resize: vertical;
+}
+
+input[type=submit] {
+  padding: 2% 5%;
+  margin: 5% 10%;
+  margin-left: 27%;
+  width: 40%;
+  border-radius: 20px;
+  width: auto;
+  text-align: center;
+  background-color: rgb(22, 168, 201);
+  color: white;
+  border: none;
+  outline: none;
+}
+
+input[type=submit]:hover {
+  background-color: rgb(54, 195, 226);
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    padding: 3% 2%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+  }
+}
