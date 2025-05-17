@@ -1,0 +1,69 @@
+'use client';
+
+import { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Float } from '@react-three/drei';
+import * as THREE from 'three';
+
+export default function ServerRack({ position = [0, 0, 0], scale = 1 }) {
+  const groupRef = useRef<THREE.Group>(null);
+  
+  useFrame((state) => {
+    if (!groupRef.current) return;
+    
+    // Subtle rotation animation
+    groupRef.current.rotation.y = Math.sin(state.clock.getElapsedTime() * 0.1) * 0.05;
+  });
+  
+  return (
+    <Float 
+      speed={1} 
+      rotationIntensity={0.1} 
+      floatIntensity={0.3}
+      position={position as [number, number, number]}
+      scale={scale}
+    >
+      <group ref={groupRef}>
+        {/* Server rack main body */}
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[3, 4, 1]} />
+          <meshStandardMaterial color="#282a36" metalness={0.7} roughness={0.2} />
+        </mesh>
+        
+        {/* Server units */}
+        {Array.from({ length: 5 }).map((_, i) => (
+          <mesh key={i} position={[0, -1.5 + i * 0.7, 0.51]}>
+            <boxGeometry args={[2.8, 0.6, 0.05]} />
+            <meshStandardMaterial color="#44475a" metalness={0.5} roughness={0.1} />
+            
+            {/* Server lights */}
+            <mesh position={[1.2, 0, 0.1]} scale={[0.1, 0.1, 0.1]}>
+              <sphereGeometry args={[1, 16, 16]} />
+              <meshStandardMaterial 
+                color={i % 2 === 0 ? "#50fa7b" : "#ff79c6"} 
+                emissive={i % 2 === 0 ? "#50fa7b" : "#ff79c6"} 
+                emissiveIntensity={1} 
+              />
+            </mesh>
+          </mesh>
+        ))}
+        
+        {/* Rack mount holes */}
+        {Array.from({ length: 10 }).map((_, i) => (
+          <mesh key={i} position={[-1.45, -1.8 + i * 0.35, 0.51]}>
+            <cylinderGeometry args={[0.05, 0.05, 0.1, 16]} rotation={[Math.PI / 2, 0, 0]} />
+            <meshStandardMaterial color="#6272a4" metalness={0.7} roughness={0.2} />
+          </mesh>
+        ))}
+        
+        {/* Rack mount holes - right side */}
+        {Array.from({ length: 10 }).map((_, i) => (
+          <mesh key={i} position={[1.45, -1.8 + i * 0.35, 0.51]}>
+            <cylinderGeometry args={[0.05, 0.05, 0.1, 16]} rotation={[Math.PI / 2, 0, 0]} />
+            <meshStandardMaterial color="#6272a4" metalness={0.7} roughness={0.2} />
+          </mesh>
+        ))}
+      </group>
+    </Float>
+  );
+}

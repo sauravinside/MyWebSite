@@ -1,0 +1,160 @@
+/* src/app/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 248, 248, 242;
+  --background-start-rgb: 20, 20, 20;
+  --background-end-rgb: 15, 15, 15;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  overflow-x: hidden;
+}
+
+.smooth-scroll {
+  @apply transition-all duration-700 ease-in-out;
+}
+
+.terminal-text {
+  @apply font-mono text-terminal-green;
+}
+
+.terminal-prompt::before {
+  content: "$ ";
+  @apply text-terminal-green;
+}
+
+.terminal-window {
+  @apply bg-terminal-black border border-terminal-gray rounded-md p-4 shadow-terminal;
+}
+
+.cursor::after {
+  content: "";
+  @apply w-2 h-5 bg-terminal-green inline-block animate-terminal-cursor ml-1;
+}
+
+.code-text {
+  @apply font-mono text-sm;
+}
+
+.section-heading {
+  @apply text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-terminal-pink to-terminal-purple;
+}
+
+.tag-cloud-item {
+  @apply px-3 py-1 rounded-full text-sm font-medium transition-all duration-300;
+}
+
+.skill-badge {
+  @apply px-3 py-1 rounded-md text-sm font-mono bg-opacity-20 flex items-center gap-2 transition-all duration-300;
+}
+
+.skill-badge:hover {
+  @apply bg-opacity-30 transform -translate-y-1;
+}
+
+.aws-badge {
+  @apply bg-aws text-black;
+}
+
+.gcp-badge {
+  @apply bg-gcp text-white;
+}
+
+.azure-badge {
+  @apply bg-azure text-white;
+}
+
+.terminal-gradient {
+  background: linear-gradient(135deg, #282a36 0%, #44475a 100%);
+}
+
+.grid-background {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-terminal-black;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-terminal-gray rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-terminal-blue;
+}
+
+/* Animations */
+.scroll-animation-section {
+  @apply opacity-0 transition-all duration-1000;
+}
+
+.scroll-animation-section.animate {
+  @apply opacity-100;
+}
+
+.text-glitch {
+  position: relative;
+  animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  14% {
+    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  15% {
+    text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  49% {
+    text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  50% {
+    text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  99% {
+    text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  100% {
+    text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+}
+
+.glass-card {
+  @apply rounded-xl border border-white/10 bg-white/5 shadow-lg backdrop-blur-sm;
+}
+
+.timeline-item::before {
+  content: '';
+  @apply absolute w-3 h-3 rounded-full bg-terminal-purple -left-[6.5px] top-2;
+}
+
+.timeline-line {
+  @apply absolute w-0.5 h-full bg-gradient-to-b from-terminal-pink to-terminal-purple top-0 left-0;
+}
