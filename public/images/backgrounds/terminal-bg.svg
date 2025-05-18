@@ -1,0 +1,11 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="terminal-pattern" width="50" height="50" patternUnits="userSpaceOnUse">
+      <rect width="50" height="50" fill="#282a36" />
+      <path d="M 10 10 L 15 15 L 10 20" fill="none" stroke="#6272a4" stroke-width="1" />
+      <circle cx="35" cy="15" r="3" fill="#ff79c6" opacity="0.4" />
+      <circle cx="25" cy="35" r="2" fill="#50fa7b" opacity="0.4" />
+    </pattern>
+  </defs>
+  <rect width="100" height="100" fill="url(#terminal-pattern)" />
+</svg>

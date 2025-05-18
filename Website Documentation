@@ -1,0 +1,206 @@
+Saurav Singh - Advanced Portfolio Website
+Project Overview
+This project is a modern, interactive portfolio website for Saurav Singh, a Cloud and DevOps professional with expertise in AWS, GCP, Azure, and OCI. The website features smooth scroll-based animations, immersive storytelling, terminal aesthetics, and 3D elements to create a cinematic experience.
+Tech Stack
+
+Framework: Next.js 14 (App Router)
+Animation Libraries:
+
+Framer Motion for UI animations
+GSAP with ScrollTrigger for scroll-based animations
+Lenis for smooth scrolling
+
+
+Styling: Tailwind CSS with custom configuration
+3D Rendering: React Three Fiber (R3F) with Three.js
+Terminal Emulation: Custom React component with xterm.js
+Type Safety: TypeScript
+Deployment: Vercel
+
+Project Structure
+saurav-portfolio/
+├── README.md
+├── package.json
+├── tsconfig.json
+├── tailwind.config.ts
+├── postcss.config.js
+├── next.config.js
+├── public/
+│   ├── fonts/
+│   ├── images/
+│   │   ├── profile.jpg
+│   │   ├── projects/
+│   │   ├── certifications/
+│   │   ├── experience/
+│   │   └── backgrounds/
+│   ├── models/
+│   │   ├── cloud.glb
+│   │   └── server.glb
+│   └── icons/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── globals.css
+│   │   └── favicon.ico
+│   ├── components/
+│   │   ├── ui/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Badge.tsx
+│   │   │   ├── Card.tsx
+│   │   │   └── Navbar.tsx
+│   │   ├── sections/
+│   │   │   ├── Hero.tsx
+│   │   │   ├── About.tsx
+│   │   │   ├── Experience.tsx
+│   │   │   ├── Projects.tsx
+│   │   │   ├── Skills.tsx
+│   │   │   ├── Certifications.tsx
+│   │   │   └── Contact.tsx
+│   │   ├── 3d/
+│   │   │   ├── CloudScene.tsx
+│   │   │   ├── ServerRack.tsx
+│   │   │   └── ParticleField.tsx
+│   │   ├── terminal/
+│   │   │   ├── Terminal.tsx
+│   │   │   ├── TerminalCommand.tsx
+│   │   │   └── TerminalOutput.tsx
+│   │   └── animations/
+│   │       ├── ScrollSection.tsx
+│   │       ├── ParallaxText.tsx
+│   │       └── TextReveal.tsx
+│   ├── hooks/
+│   │   ├── useScrollAnimation.ts
+│   │   ├── useTerminal.ts
+│   │   └── use3DObject.ts
+│   ├── lib/
+│   │   ├── animations.ts
+│   │   ├── terminal-commands.ts
+│   │   └── scroll-manager.ts
+│   ├── constants/
+│   │   ├── experience.ts
+│   │   ├── projects.ts
+│   │   ├── skills.ts
+│   │   └── certifications.ts
+│   ├── types/
+│   │   └── index.ts
+│   └── utils/
+│       ├── animations.ts
+│       └── helpers.ts
+└── .gitignore
+Installation & Setup
+bash# Clone the repository
+git clone https://github.com/sauravinside/portfolio-website.git
+
+# Navigate to the project directory
+cd portfolio-website
+
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
+Key Features
+1. Immersive Scroll-Based Animations
+
+Section transitions that blend seamlessly into each other
+Parallax effects for depth and dimension
+Text reveal animations synchronized with scroll position
+
+2. Terminal Experience
+
+Interactive terminal with command-line interface
+Custom commands to display portfolio information
+Typewriter effect for terminal text
+Dark mode terminal aesthetic
+
+3. 3D Elements
+
+Cloud infrastructure visualization
+Interactive server rack model
+Particle field background for visual depth
+
+4. Responsive Design
+
+Fully responsive across all devices
+Optimized animations for mobile experience
+Accessible navigation for all screen sizes
+
+5. Performance Optimization
+
+Code splitting and lazy loading
+Optimized 3D rendering
+Efficient animation handling
+
+Section Breakdowns
+Splash Screen / Hero
+
+Terminal-themed intro with typewriter effect
+Dynamic particle background
+Custom terminal that accepts commands:
+
+ls - List sections
+cd <section> - Navigate to section
+cat profile.txt - Display brief bio
+help - Show available commands
+
+
+
+About
+
+Smooth transition from terminal to personal introduction
+Animated cloud infrastructure 3D model
+Key skills and professional summary with animated highlighting
+
+Experience Timeline
+
+Vertical scroll-based timeline with position-triggered animations
+Company logos and role details that fade in as user scrolls
+Interactive elements that expand to show detailed responsibilities
+
+Projects Showcase
+
+Horizontal scrolling gallery with featured projects
+3D card hover effects
+Technical details that appear on interaction
+
+Skills & Technologies
+
+Dynamic visualization of technology stack
+Animation that groups related technologies
+Progress bars or skill level indicators with scroll-based filling
+
+Certifications Wall
+
+Grid display of certification badges
+Hover effects that reveal certification details
+Visual indication of certification validity
+
+Contact Section
+
+Animated form elements
+Social media links with hover effects
+Interactive map or location indicator
+
+Performance Considerations
+
+Lazy loading of 3D models and heavy components
+Animation throttling for mobile devices
+Preloading of critical assets
+Optimized asset delivery through Next.js Image component
+
+Accessibility
+
+Keyboard navigation support
+Screen reader friendly alternative content
+Reduced motion option for users with motion sensitivity
+High contrast text options
+
+Browser Compatibility
+Tested and optimized for:
+
+Chrome (latest)
+Firefox (latest)
+Safari (latest)
+Edge (latest)
+Mobile browsers (iOS Safari, Android Chrome)
