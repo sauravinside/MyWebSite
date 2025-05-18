@@ -3,11 +3,18 @@
 // src/components/3d/CloudScene.tsx
 import { useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, Environment, Float } from '@react-three/drei';
+import { Environment, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
+// Interface definitions
+interface CloudModelProps {
+  position?: [number, number, number];
+  scale?: number;
+  rotation?: [number, number, number];
+}
+
 // Cloud model component
-function CloudModel({ position = [0, 0, 0], scale = 1, rotation = [0, 0, 0] }) {
+function CloudModel({ position = [0, 0, 0], scale = 1, rotation = [0, 0, 0] }: CloudModelProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   
   // Animation
@@ -43,18 +50,18 @@ function CloudModel({ position = [0, 0, 0], scale = 1, rotation = [0, 0, 0] }) {
 
 // Server rack component
 function ServerRack() {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const groupRef = useRef<THREE.Group>(null);
   
   useFrame((state) => {
-    if (!meshRef.current) return;
+    if (!groupRef.current) return;
     
     // Subtle floating animation
-    meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.05;
+    groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.05;
   });
   
   return (
     <Float speed={1} rotationIntensity={0.1} floatIntensity={0.3}>
-      <group ref={meshRef} position={[0, -1, 0]} scale={0.5}>
+      <group ref={groupRef} position={[0, -1, 0]} scale={0.5}>
         {/* Main server rack */}
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[3, 4, 1]} />
@@ -76,6 +83,22 @@ function ServerRack() {
                 emissiveIntensity={1} 
               />
             </mesh>
+          </mesh>
+        ))}
+        
+        {/* Rack mount holes */}
+        {Array.from({ length: 10 }).map((_, i) => (
+          <mesh key={i} position={[-1.45, -1.8 + i * 0.35, 0.51]}>
+            <cylinderGeometry args={[0.05, 0.05, 0.1, 16]} />
+            <meshStandardMaterial color="#6272a4" metalness={0.7} roughness={0.2} />
+          </mesh>
+        ))}
+        
+        {/* Rack mount holes - right side */}
+        {Array.from({ length: 10 }).map((_, i) => (
+          <mesh key={i} position={[1.45, -1.8 + i * 0.35, 0.51]}>
+            <cylinderGeometry args={[0.05, 0.05, 0.1, 16]} />
+            <meshStandardMaterial color="#6272a4" metalness={0.7} roughness={0.2} />
           </mesh>
         ))}
       </group>
@@ -113,40 +136,40 @@ function ConnectionLines() {
   
   return (
     <group ref={linesRef}>
-      {linePositions.map((line, index) => (
-        <mesh key={index}>
-          <mesh position={new THREE.Vector3(
-            (line.start[0] + line.end[0]) / 2,
-            (line.start[1] + line.end[1]) / 2,
-            (line.start[2] + line.end[2]) / 2
-          )}>
-            {/* Calculate cylinder rotation to point from start to end */}
-            <cylinderGeometry
-              args={[
-                0.02, // radiusTop
-                0.02, // radiusBottom
-                Math.sqrt(
-                  Math.pow(line.end[0] - line.start[0], 2) +
-                  Math.pow(line.end[1] - line.start[1], 2) +
-                  Math.pow(line.end[2] - line.start[2], 2)
-                ), // height
-                16, // radialSegments
-              ]}
-              rotation={[
-                Math.PI / 2,
-                Math.atan2(
-                  line.end[2] - line.start[2],
-                  line.end[0] - line.start[0]
-                ),
-                Math.atan2(
-                  line.end[1] - line.start[1],
-                  Math.sqrt(
-                    Math.pow(line.end[0] - line.start[0], 2) +
-                    Math.pow(line.end[2] - line.start[2], 2)
-                  )
-                ),
-              ]}
-            />
+      {linePositions.map((line, index) => {
+        // Calculate distance between points
+        const distance = Math.sqrt(
+          Math.pow(line.end[0] - line.start[0], 2) +
+          Math.pow(line.end[1] - line.start[1], 2) +
+          Math.pow(line.end[2] - line.start[2], 2)
+        );
+        
+        // Calculate position (midpoint)
+        const position: [number, number, number] = [
+          (line.start[0] + line.end[0]) / 2,
+          (line.start[1] + line.end[1]) / 2,
+          (line.start[2] + line.end[2]) / 2
+        ];
+        
+        // Calculate rotation to point from start to end
+        const rotation: [number, number, number] = [
+          Math.PI / 2,
+          Math.atan2(
+            line.end[2] - line.start[2],
+            line.end[0] - line.start[0]
+          ),
+          Math.atan2(
+            line.end[1] - line.start[1],
+            Math.sqrt(
+              Math.pow(line.end[0] - line.start[0], 2) +
+              Math.pow(line.end[2] - line.start[2], 2)
+            )
+          ),
+        ];
+        
+        return (
+          <mesh key={index} position={position} rotation={rotation}>
+            <cylinderGeometry args={[0.02, 0.02, distance, 16]} />
             <meshStandardMaterial
               color={index % 2 === 0 ? "#8be9fd" : "#bd93f9"}
               transparent
@@ -155,8 +178,8 @@ function ConnectionLines() {
               emissiveIntensity={0.5}
             />
           </mesh>
-        </mesh>
-      ))}
+        );
+      })}
     </group>
   );
 }

@@ -1,10 +1,43 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Text, Html, Float, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 
+// Type definitions
+interface CloudPlatformProps {
+  name: string;
+  position: [number, number, number];
+  color: string;
+  selected?: boolean;
+  onClick?: (name: string) => void;
+  children?: React.ReactNode;
+}
+
+interface ServerProps {
+  position: [number, number, number];
+  scale?: number;
+  selected?: boolean;
+  onClick?: (type: string) => void;
+}
+
+interface ConnectionLineProps {
+  start: [number, number, number];
+  end: [number, number, number];
+  color: string;
+  thickness?: number;
+  selected?: boolean;
+  animated?: boolean;
+}
+
+interface CloudParticlesProps {
+  position: [number, number, number];
+  color: string;
+  count?: number;
+  radius?: number;
+}
+
 // CloudPlatform component represents a cloud provider with label
-const CloudPlatform = ({ 
+const CloudPlatform: React.FC<CloudPlatformProps> = ({ 
   name, 
   position, 
   color, 
@@ -12,7 +45,7 @@ const CloudPlatform = ({
   onClick,
   children
 }) => {
-  const groupRef = useRef();
+  const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   
   // Animation
@@ -101,8 +134,8 @@ const CloudPlatform = ({
 };
 
 // Connection line between two points
-const ConnectionLine = ({ start, end, color, thickness = 0.03, selected = false, animated = false }) => {
-  const lineRef = useRef();
+const ConnectionLine: React.FC<ConnectionLineProps> = ({ start, end, color, thickness = 0.03, selected = false, animated = false }) => {
+  const lineRef = useRef<THREE.Mesh>(null);
   
   // Calculate vector between points
   const direction = new THREE.Vector3().subVectors(
@@ -132,7 +165,7 @@ const ConnectionLine = ({ start, end, color, thickness = 0.03, selected = false,
     
     // Pulse animation for selected lines
     if (selected) {
-      const material = lineRef.current.material;
+      const material = lineRef.current.material as THREE.MeshStandardMaterial;
       material.opacity = 0.4 + Math.sin(state.clock.getElapsedTime() * 2) * 0.3;
       material.emissiveIntensity = 0.5 + Math.sin(state.clock.getElapsedTime() * 2) * 0.3;
     }
@@ -157,8 +190,8 @@ const ConnectionLine = ({ start, end, color, thickness = 0.03, selected = false,
 };
 
 // Server component with blinking lights
-const Server = ({ position, scale = 1, selected = false, onClick }) => {
-  const serverRef = useRef();
+const Server: React.FC<ServerProps> = ({ position, scale = 1, selected = false, onClick }) => {
+  const serverRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   const [lightIntensity, setLightIntensity] = useState(0);
   
@@ -271,8 +304,8 @@ const Server = ({ position, scale = 1, selected = false, onClick }) => {
 };
 
 // Particle effect for the cloud platforms
-const CloudParticles = ({ position, color, count = 50, radius = 1.2 }) => {
-  const points = useRef();
+const CloudParticles: React.FC<CloudParticlesProps> = ({ position, color, count = 50, radius = 1.2 }) => {
+  const points = useRef<THREE.Points>(null);
   
   // Generate random points
   const particlePositions = useMemo(() => {
@@ -323,9 +356,9 @@ const CloudParticles = ({ position, color, count = 50, radius = 1.2 }) => {
 };
 
 // Main scene
-const CloudInfrastructureScene = () => {
+const CloudInfrastructureScene: React.FC = () => {
   const { camera } = useThree();
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
   
   // Setup camera on mount
   useEffect(() => {
@@ -334,14 +367,14 @@ const CloudInfrastructureScene = () => {
   }, [camera]);
   
   // Cloud platform positions
-  const serverPos = [0, 0, 0];
-  const awsPos = [-4, 0, -2];
-  const gcpPos = [4, 0, -2];
-  const azurePos = [0, 0, -5];
-  const ociPos = [0, -4, -3];
+  const serverPos: [number, number, number] = [0, 0, 0];
+  const awsPos: [number, number, number] = [-4, 0, -2];
+  const gcpPos: [number, number, number] = [4, 0, -2];
+  const azurePos: [number, number, number] = [0, 0, -5];
+  const ociPos: [number, number, number] = [0, -4, -3];
   
   // Handle item selection
-  const handleItemClick = (item) => {
+  const handleItemClick = (item: string) => {
     setSelectedItem(item === selectedItem ? null : item);
   };
   
@@ -520,7 +553,7 @@ const CloudInfrastructureScene = () => {
 };
 
 // Main exported component with Canvas wrapper
-const CloudInfrastructureVisualization = () => {
+const CloudInfrastructureVisualization: React.FC = () => {
   const [helpVisible, setHelpVisible] = useState(true);
   
   // Hide help message after 5 seconds
