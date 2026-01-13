@@ -4,6 +4,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaServer, FaCloud, FaCode } from 'react-icons/fa';
+import Image from 'next/image'; // Added for profile picture
 import CloudScene from '../3d/CloudScene';
 import TextReveal from '../animations/TextReveal';
 
@@ -109,7 +110,7 @@ export default function About() {
               </motion.div>
             </div>
             
-            {/* 3D Cloud Scene */}
+            {/* 3D Cloud Scene & Profile Picture */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -117,12 +118,25 @@ export default function About() {
               viewport={{ once: true }}
               className="h-full min-h-[400px] flex items-center justify-center relative"
             >
-              <div className="w-full h-full absolute">
+              {/* Profile Picture Background Layer */}
+              <div className="absolute inset-0 flex items-center justify-center z-0 opacity-40">
+                <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-terminal-purple/30">
+                  <Image 
+                    src="/images/profile.jpg" 
+                    alt="Saurav Singh" 
+                    fill
+                    className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  />
+                </div>
+              </div>
+
+              {/* 3D Scene Layer */}
+              <div className="w-full h-full absolute z-10">
                 <CloudScene />
               </div>
               
               {/* Certification badges floating */}
-              <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
+              <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 z-20">
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
@@ -132,7 +146,7 @@ export default function About() {
                 </motion.div>
               </div>
               
-              <div className="absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2">
+              <div className="absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2 z-20">
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, repeatType: "reverse", delay: 0.5 }}
@@ -142,7 +156,7 @@ export default function About() {
                 </motion.div>
               </div>
               
-              <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2">
+              <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 z-20">
                 <motion.div
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 3, repeat: Infinity, repeatType: "reverse", delay: 1 }}
