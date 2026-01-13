@@ -3,13 +3,14 @@
 // src/components/3d/ParticleField.tsx
 import { useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Canvas, extend } from '@react-three/fiber';
-import { OrbitControls, Points, PointMaterial } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
 
 // Particle component
-function Particles({ count = 2000 }) {
+// Optimized: Reduced default count from 2000 to 800 for better performance
+function Particles({ count = 800 }) {
   const pointsRef = useRef<THREE.Points>(null);
   
   // Generate random points in 3D space
